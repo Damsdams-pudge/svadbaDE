@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свадьбу — Дмитрий и Екатерина</title>
+    <style>
+        /* Шрифты */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap');
+
+        /* Переменные стилей (Цветовая гамма Boho Green) */
+        :root {
+            --bg-color: #f7f9f6;
+            --cream-light: #faf8f5;
+            --sage-dark: #2d3c33; /* Тот самый темно-зеленый оттенок */
+            --sage-medium: #587261;
+            --sage-light: #c2d1c6;
+            --gold: #c39b62;
+            --gold-light: #e6dfd3;
+            --text-dark: #2c3531;
+            --text-light: #606d66;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            background-color: var(--sage-dark);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden; /* Скрываем прокрутку, пока приглашение не открыто */
+        }
+
+        /* Анимация падающих листьев на фоне */
+        .leaf {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(194, 209, 198, 0.3);
+            border-radius: 0 100% 0 100%;
+            top: -20px;
+            z-index: 1;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -20px;
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                top: 105vh;
+                transform: translateX(120px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ================= СТРАНИЦА 1: КОНВЕРТ / ОБЛОЖКА ================= */
+        .envelope-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #222e26 0%, #111814 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1), opacity 1.2s ease;
+            padding: 20px;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+        }
+
+        .envelope-card {
+            background-color: var(--cream-light);
+            width: 100%;
+            max-width: 440px;
+            border-radius: 16px;
+            padding: 45px 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: scaleIn 0.8s ease-out forwards;
+            border: 1px solid rgba(195, 155, 98, 0.2);
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Декоративные цветочные уголки (векторная отрисовка в стиле бохо) */
+        .decor-top-left, .decor-bottom-right {
+            position: absolute;
+            width: 130px;
+            height: auto;
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .decor-top-left {
+            top: 0;
+            left: 0;
+        }
+
+        .decor-bottom-right {
+            bottom: 0;
+            right: 0;
+            transform: scale(-1); /* Зеркально разворачиваем для нижнего правого угла */
+        }
+
+        /* Иконка сердца в круге */
+        .heart-icon-circle {
+            width: 52px;
+            height: 52px;
+            background-color: var(--sage-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .heart-icon-circle svg {
+            width: 22px;
+            height: 22px;
+            fill: #fff;
+        }
+
+        .envelope-card h2 {
+            font-family: var(--font-serif);
+            font-size: 2.3rem;
+            color: var(--sage-dark);
+            font-weight: 400;
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        .envelope-card .and {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin: 5px 0;
+            display: block;
+        }
+
+        .envelope-card .divider {
+            width: 60px;
+            height: 1px;
+            background-color: var(--gold-light);
+            margin: 18px auto;
+            position: relative;
+        }
+
+        .envelope-card .divider::after {
+            content: '❦';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--cream-light);
+            padding: 0 6px;
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        .envelope-card .date {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .envelope-card .invited {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            margin-bottom: 18px;
+        }
+
+        /* Стильный бейдж с именем гостя */
+        .envelope-card .guest-badge {
+            display: inline-block;
+            background-color: #ebe5dd;
+            color: var(--sage-dark);
+            padding: 6px 22px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+        }
+
+        .envelope-card .desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .btn-open {
+            background-color: var(--sage-dark);
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            font-weight: 500;
+        }
+
+        .btn-open:hover {
+            background-color: #1e2822;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        /* Скрытие первой страницы при открытии */
+        .envelope-screen.opened {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ================= СТРАНИЦА 2: ОСНОВНОЙ КОНТЕНТ ================= */
+        .main-content-screen {
+            height: 100%;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            display: none;
+            background-color: var(--bg-color);
+        }
+
+        .main-content-screen.visible {
+            display: block;
+        }
+
+        .page-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: var(--cream-light);
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        /* Шапка сайта с цветочной гирляндой */
+        .floral-header {
+            text-align: center;
+            padding: 60px 20px 20px;
+            position: relative;
+        }
+        
+        .floral-svg {
+            width: 120px;
+            height: auto;
+            opacity: 0.85;
+            margin: 0 auto;
+            display: block;
+        }
+
+        h1, .section-title, h3 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            color: var(--sage-dark);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            line-height: 1.1;
+            margin: 20px 0;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin: 35px 0 15px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '❦';
+            display: block;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-top: 5px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .date-badge {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            border-top: 1px solid var(--gold-light);
+            border-bottom: 1px solid var(--gold-light);
+            padding: 8px 0;
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+            color: var(--sage-dark);
+        }
+
+        .section {
+            padding: 40px 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        /* Блок молодоженов */
+        .couple-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .couple-avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            object-fit: cover;
+            background-color: var(--sage-light);
+        }
+
+        /* Таймер обратного отсчета */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .countdown-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px;
+            min-width: 65px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border: 1px solid rgba(194, 209, 198, 0.3);
+        }
+
+        .countdown-val {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--sage-dark);
+            display: block;
+        }
+
+        .countdown-lbl {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+
+        /* Расписание (Таймлайн) */
+        .timeline {
+            margin: 30px 0;
+            position: relative;
+            padding-left: 30px;
+            text-align: left;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            bottom: 5px;
+            width: 1px;
+            background-color: var(--sage-light);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 6px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            border: 2px solid var(--cream-light);
+        }
+
+        .timeline-time {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--sage-dark);
+            margin-bottom: 2px;
+        }
+
+        .timeline-title {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Фотогалерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+            aspect-ratio: 1 / 1;
+            background-color: #eee;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            background-color: var(--sage-dark);
+            color: white;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(58, 80, 67, 0.25);
+            margin: 10px auto;
+        }
+
+        .btn:hover {
+            background-color: var(--sage-medium);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(58, 80, 67, 0.35);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--sage-dark);
+            border: 1px solid var(--sage-light);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(194, 209, 198, 0.15);
+            color: var(--sage-dark);
+        }
+
+        /* Интерактивные формы */
+        form {
+            text-align: left;
+            background-color: white;
+            padding: 25px 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+            border: 1px solid rgba(194, 209, 198, 0.4);
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--sage-light);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            background-color: var(--bg-color);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--sage-medium);
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .radio-label, .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        .radio-label input, .checkbox-label input {
+            margin-right: 10px;
+            accent-color: var(--sage-medium);
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Стена пожеланий */
+        .guestbook-messages {
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .message-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+            border-left: 3px solid var(--gold);
+        }
+
+        .message-author {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--sage-dark);
+            margin-bottom: 4px;
+        }
+
+        .message-text {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* Музыкальный плеер */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            border: 1px solid var(--sage-light);
+        }
+
+        .music-icon {
+            width: 20px;
+            height: 20px;
+            fill: var(--sage-dark);
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--gold-light);
+        }
+
+        .footer p {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--sage-dark);
+        }
+
+        .footer-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Контейнер для эффекта падающих листьев -->
+    <div id="leaves-container"></div>
+
+    <!-- ================= СТРАНИЦА 1: АНИМИРОВАННАЯ КАРТОЧКА-КОНВЕРТ ================= -->
+    <div class="envelope-screen" id="envelopeScreen">
+        <div class="envelope-card">
+            <!-- Верхний левый цветочный вектор -->
+            <svg class="decor-top-left" viewBox="0 0 100 100" fill="none">
+                <path d="M0,0 C30,10 60,30 50,60" stroke="#587261" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M10,12 C12,5 25,10 20,20 C14,18 8,15 10,12" fill="#c2d1c6"/>
+                <path d="M25,22 C30,15 40,25 32,32 C26,28 22,25 25,22" fill="#587261" opacity="0.8"/>
+                <path d="M35,42 C45,38 42,50 35,52 C30,48 32,44 35,42" fill="#c2d1c6"/>
+                <circle cx="20" cy="30" r="3" fill="#c39b62"/>
+                <circle cx="42" cy="38" r="2.5" fill="#c39b62"/>
+            </svg>
+
+            <!-- Нижний правый цветочный вектор -->
+            <svg class="decor-bottom-right" viewBox="0 0 100 100" fill="none">
+                <path d="M0,0 C30,10 60,30 50,60" stroke="#587261" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M10,12 C12,5 25,10 20,20 C14,18 8,15 10,12" fill="#c2d1c6"/>
+                <path d="M25,22 C30,15 40,25 32,32 C26,28 22,25 25,22" fill="#587261" opacity="0.8"/>
+                <path d="M35,42 C45,38 42,50 35,52 C30,48 32,44 35,42" fill="#c2d1c6"/>
+                <circle cx="20" cy="30" r="3" fill="#c39b62"/>
+                <circle cx="42" cy="38" r="2.5" fill="#c39b62"/>
+            </svg>
+
+            <!-- Круг с иконкой сердца -->
+            <div class="heart-icon-circle">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+
+            <h2>Дмитрий</h2>
+            <span class="and">&</span>
+            <h2>Екатерина</h2>
+
+            <div class="divider"></div>
+
+            <div class="date">19 СЕНТЯБРЯ 2026</div>
+            <div class="invited">Вы приглашены</div>
+            
+            <!-- Динамическое имя гостя (можно менять через URL ?name=Иван) -->
+            <div class="guest-badge" id="guestName">Дорогой Гость</div>
+            <p class="desc">разделить с нами радость этого дня</p>
+
+            <button class="btn-open" onclick="openInvitation()">
+                Открыть приглашение
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ================= СТРАНИЦА 2: ОСНОВНОЙ САЙТ (ОТКРЫВАЕТСЯ ПО КЛИКУ) ================= -->
+    <div class="main-content-screen" id="mainContent">
+        <div class="page-container">
+            
+            <!-- Плавающий плеер фоновой музыки -->
+            <div class="music-player" onclick="toggleMusic()" title="Включить/выключить музыку">
+                <svg class="music-icon" viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+                <!-- Ссылка на тестовую музыку (можно заменить на свою) -->
+                <audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" style="display:none;"></audio>
+            </div>
+
+            <!-- Шапка главного контента -->
+            <header class="floral-header">
+                <!-- Векторная гирлянда в стиле Boho -->
+                <svg class="floral-svg" viewBox="0 0 100 100" fill="none">
+                    <path d="M50,10 C65,10 80,25 80,45 C80,65 65,80 50,90 C35,80 20,65 20,45 C20,25 35,10 50,10 Z" stroke="#587261" stroke-width="1.5" stroke-dasharray="1,2"/>
+                    <path d="M25,50 C23,45 28,35 33,35 C35,38 32,45 25,50" fill="#c2d1c6" opacity="0.8"/>
+                    <path d="M28,60 C25,55 31,48 36,50 C36,53 32,58 28,60" fill="#587261" opacity="0.6"/>
+                    <path d="M75,50 C77,45 72,35 67,35 C65,38 68,45 75,50" fill="#c2d1c6" opacity="0.8"/>
+                    <path d="M72,60 C75,55 69,48 64,50 C64,53 68,58 72,60" fill="#587261" opacity="0.6"/>
+                    <circle cx="50" cy="18" r="2.5" fill="#c39b62"/>
+                    <circle cx="34" cy="28" r="2" fill="#c39b62"/>
+                    <circle cx="66" cy="28" r="2" fill="#c39b62"/>
+                </svg>
+
+                <div class="subtitle" style="margin-top: 25px;">Приглашение на свадьбу</div>
+                <h1>Дмитрий<br>&<br>Екатерина</h1>
+                
+                <div class="date-badge">19 СЕНТЯБРЯ 2026</div>
+                <div class="subtitle">Суббота, в 15:00</div>
+            </header>
+
+            <!-- Приветственный блок -->
+            <section class="section">
+                <p>Дорогие родные и близкие!</p>
+                <p>Один день в этом году будет для нас особенным, и мы хотим провести его в окружении самых любимых людей. Мы рады пригласить вас на нашу свадьбу!</p>
+                <a href="#rsvp" class="btn">Подтвердить присутствие</a>
+            </section>
+
+            <!-- Блок "Наша история" -->
+            <section class="section" style="background-color: rgba(194, 209, 198, 0.15);">
+                <div class="section-title">Наша История</div>
+                <p>Два сердца, одна прекрасная история, которая перерастает в крепкую и счастливую семью.</p>
+                
+                <div class="couple-card">
+                    <img class="couple-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><rect width='140' height='140' fill='%23c2d1c6'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%233a5043'>Жених</text></svg>" alt="Дмитрий">
+                    <div>
+                        <h3>Дмитрий</h3>
+                        <p style="font-size: 0.85rem; max-width: 260px; margin: 0 auto;">«С первой секунды нашей встречи она делает мою жизнь ярче. С каждым днём я люблю её всё сильнее.»</p>
+                    </div>
+                </div>
+
+                <div class="couple-card">
+                    <img class="couple-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><rect width='140' height='140' fill='%23e6dfd3'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%233a5043'>Невеста</text></svg>" alt="Екатерина">
+                    <div>
+                        <h3>Екатерина</h3>
+                        <p style="font-size: 0.85rem; max-width: 260px; margin: 0 auto;">«С ним я чувствую себя защищенной, могу быть собой и искренне смеяться. Он — мое настоящее счастье.»</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Обратный отсчет -->
+            <section class="section">
+                <div class="section-title">До торжества осталось</div>
+                <div class="countdown" id="timer">
+                    <div class="countdown-item">
+                        <span class="countdown-val" id="days">00</span>
+                        <span class="countdown-lbl">дней</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-val" id="hours">00</span>
+                        <span class="countdown-lbl">часов</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-val" id="minutes">00</span>
+                        <span class="countdown-lbl">мин</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-val" id="seconds">00</span>
+                        <span class="countdown-lbl">сек</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Свадебное расписание (Таймлайн) -->
+            <section class="section" style="background-color: rgba(247, 249, 246, 0.75);">
+                <div class="section-title">Свадебный План</div>
+                <p>Программа нашего свадебного дня:</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">15:00</div>
+                        <div class="timeline-title">Сбор гостей & Фуршет</div>
+                        <div class="timeline-desc">Легкие угощения, приветственные напитки и встреча гостей.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">16:00</div>
+                        <div class="timeline-title">Торжественная церемония</div>
+                        <div class="timeline-desc">Самый важный и трогательный момент обмена клятвами.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">17:30</div>
+                        <div class="timeline-title">Праздничный банкет</div>
+                        <div class="timeline-desc">Ужин, поздравления, приятные сюрпризы и конкурсы.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">21:00</div>
+                        <div class="timeline-title">Разрезание торта и танцы</div>
+                        <div class="timeline-desc">Сладкий финал вечера и танцевальное шоу.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Место проведения -->
+            <section class="section" style="background-color: rgba(194, 209, 198, 0.15);">
+                <div class="section-title">Место проведения</div>
+                <p><strong>Загородная Вилла «Зеленая Усадьба»</strong></p>
+                <p>Адрес: ул. Лесная Поляна, д. 12, живописный пригород.</p>
+                <p>Для всех гостей предусмотрен трансфер туда и обратно.</p>
+                
+                <a href="https://maps.google.com" target="_blank" class="btn btn-secondary">
+                    Открыть карту
+                </a>
+            </section>
+
+            <!-- Форма RSVP -->
+            <section id="rsvp" class="section">
+                <div class="section-title">Вы придете?</div>
+                <p>Пожалуйста, подтвердите ваше участие до <strong>1 сентября 2026 года</strong>.</p>
+                
+                <form id="rsvpForm" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label class="form-label">Ваше Имя и Фамилия</label>
+                        <input type="text" class="form-control" required placeholder="Например, Анна и Сергей">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Сможете ли вы присутствовать?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="presence" value="yes" checked>
+                                Да, с удовольствием приду / придем
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="presence" value="no">
+                                К сожалению, не смогу / не сможем
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Предпочтения по алкоголю</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="drinks" value="wine_red"> Красное вино</label>
+                            <label class="checkbox-label"><input type="checkbox" name="drinks" value="wine_white"> Белое вино</label>
+                            <label class="checkbox-label"><input type="checkbox" name="drinks" value="champagne"> Игристое</label>
+                            <label class="checkbox-label"><input type="checkbox" name="drinks" value="whiskey"> Крепкие напитки</label>
+                            <label class="checkbox-label"><input type="checkbox" name="drinks" value="none"> Только безалкогольные</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Отправить ответ</button>
+                </form>
+            </section>
+
+            <!-- Книга пожеланий (Интерактивная стена) -->
+            <section class="section" style="background-color: rgba(247, 249, 246, 0.75);">
+                <div class="section-title">Книга пожеланий</div>
+                <p>Оставьте свои теплые слова для нашей семьи!</p>
+                
+                <form id="wishForm" onsubmit="addWish(event)">
+                    <div class="form-group">
+                        <label class="form-label">Ваше имя</label>
+                        <input type="text" id="wishAuthor" class="form-control" required placeholder="Введите ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ваше пожелание</label>
+                        <textarea id="wishText" class="form-control" rows="3" required placeholder="Напишите пару приятных слов..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-secondary" style="width: 100%;">Отправить</button>
+                </form>
+
+                <div class="guestbook-messages" id="messagesContainer">
+                    <div class="message-card">
+                        <div class="message-author">Семья Смирновых</div>
+                        <div class="message-text">Дорогие Дима и Катя! Поздравляем вас с этим чудесным событием! Пусть ваша жизнь будет наполнена смехом, счастьем и невероятной нежностью! Ждем с нетерпением! ❤️</div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <p>До скорой встречи!</p>
+                <div class="footer-tag">#ДмитрийИЕкатерина2026</div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- JavaScript Логика -->
+    <script>
+        // 1. Считывание имени гостя из адресной строки (например: ...html?name=Марк)
+        const urlParams = new URLSearchParams(window.location.search);
+        const guest = urlParams.get('name');
+        if (guest) {
+            document.getElementById('guestName').innerText = guest;
+        }
+
+        // 2. Создание красивых медленно падающих листьев на обложке
+        const container = document.getElementById('leaves-container');
+        const leafCount = 15;
+        for (let i = 0; i < leafCount; i++) {
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.animationDuration = (Math.random() * 5 + 6) + 's';
+            leaf.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(leaf);
+        }
+
+        // 3. Открытие приглашения (Переход с 1 на 2 страницу)
+        function openInvitation() {
+            const envelope = document.getElementById('envelopeScreen');
+            const content = document.getElementById('mainContent');
+
+            content.classList.add('visible');
+            document.body.style.overflowY = "auto";
+            document.documentElement.style.overflowY = "auto";
+            
+            envelope.classList.add('opened');
+            toggleMusic(); // Пробуем запустить романтическую музыку
+        }
+
+        // 4. Логика таймера обратного отсчета (19 сентября 2026)
+        const targetDate = new Date("Sep 19, 2026 15:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById("timer").innerHTML = "<p>Этот особенный день уже настал!</p>";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 5. Управление фоновой музыкой
+        function toggleMusic() {
+            const audio = document.getElementById("bg-music");
+            const player = document.querySelector(".music-player");
+            
+            if (audio.paused) {
+                audio.play().then(() => {
+                    player.style.background = "var(--sage-light)";
+                }).catch(err => console.log("Музыка ожидает повторного клика из-за правил автовоспроизведения"));
+            } else {
+                audio.pause();
+                player.style.background = "white";
+            }
+        }
+
+        // 6. Отправка формы RSVP
+        function submitForm(event) {
+            event.preventDefault();
+            alert("Благодарим вас за ответ! Ваше присутствие очень важно для нас.");
+            document.getElementById("rsvpForm").reset();
+        }
+
+        // 7. Динамическое добавление записей в Книгу желаний
+        function addWish(event) {
+            event.preventDefault();
+            const author = document.getElementById("wishAuthor").value;
+            const text = document.getElementById("wishText").value;
+            
+            if (author && text) {
+                const container = document.getElementById("messagesContainer");
+                const card = document.createElement("div");
+                card.className = "message-card";
+                
+                const authorDiv = document.createElement("div");
+                authorDiv.className = "message-author";
+                authorDiv.innerText = author;
+                
+                const textDiv = document.createElement("div");
+                textDiv.className = "message-text";
+                textDiv.innerText = text;
+                
+                card.appendChild(authorDiv);
+                card.appendChild(textDiv);
+                container.insertBefore(card, container.firstChild);
+                
+                document.getElementById("wishForm").reset();
+                alert("Спасибо за ваши тёплые слова!");
+            }
+        }
+    </script>
+</body>
+</html>
